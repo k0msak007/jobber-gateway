@@ -3,10 +3,10 @@ import { AxiosResponse, isAxiosError } from 'axios';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-export class SignUp {
-  public async create(req: Request, res: Response): Promise<void> {
+export class SignIn {
+  public async read(req: Request, res: Response): Promise<void> {
     try {
-      const response: AxiosResponse = await authService.signUp(req.body);
+      const response: AxiosResponse = await authService.signIn(req.body);
       console.log('response ---> ', response.data);
 
       req.session = { jwt: response.data.token };
