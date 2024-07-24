@@ -20,7 +20,8 @@ import { Server } from 'socket.io';
 import { createClient } from 'redis';
 import { createAdapter } from '@socket.io/redis-adapter';
 import { SocketIOAppHandler } from '@gateway/sockets/socket';
-import { axiosMessageInstance } from './services/api/message.service';
+import { axiosMessageInstance } from '@gateway/services/api/message.service';
+import { axiosOrderInstance } from '@gateway/services/api/order.service';
 
 const SERVER_PORT = 4000;
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'apiGatewayServer', 'debug');
@@ -70,6 +71,7 @@ export class GatewayServer {
         axiosSellerInstance.defaults.headers.common['Authorization'] = `Bearer ${req.session.jwt}`;
         axiosGigInstance.defaults.headers.common['Authorization'] = `Bearer ${req.session.jwt}`;
         axiosMessageInstance.defaults.headers.common['Authorization'] = `Bearer ${req.session.jwt}`;
+        axiosOrderInstance.defaults.headers['Authorization'] = `Bearer ${req.session?.jwt}`;
       }
       next();
     });
